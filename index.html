@@ -1,116 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Valentine’s Day, Bestie 💐</title>
+<meta charset="UTF-8">
+<title>Happy Valentine’s Day Bestie 💐</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px;
-      border-radius: 25px;
-      text-align: center;
-      width: 350px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-      animation: fadeIn 1.5s ease;
-    }
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    z-index: 2;
+  }
 
-    h1 {
-      color: #6a4c93;
-      margin-bottom: 10px;
-    }
+  h1 { color: #6a4c93; }
+  p { color: #555; font-size: 15px; }
 
-    h2 {
-      color: #8e7cc3;
-      font-weight: 400;
-      margin-bottom: 25px;
-    }
+  button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    background: #6a4c93;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+  }
 
-    p {
-      color: #555;
-      font-size: 16px;
-      line-height: 1.6;
-    }
+  .stats {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+  }
 
-    .quote {
-      margin-top: 20px;
-      font-style: italic;
-      color: #444;
-    }
+  .heart {
+    position: absolute;
+    font-size: 26px;
+    cursor: pointer;
+    animation: float 4s linear;
+  }
 
-    .tag {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #777;
-    }
+  @keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+  }
 
-    /* Floating stickers */
-    .sticker {
-      position: absolute;
-      font-size: 22px;
-      animation: float 8s infinite ease-in-out;
-      opacity: 0.7;
-    }
+  /* Confetti */
+  .confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: random;
+    animation: confettiFall 2s linear forwards;
+  }
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-      100% { transform: translateY(0); }
-    }
+  @keyframes confettiFall {
+    from { transform: translateY(0); }
+    to { transform: translateY(100vh); }
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-  </style>
+  /* Final Message */
+  .message {
+    display: none;
+    animation: fadeIn 1.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
 </head>
 
 <body>
 
-  <!-- Background Music -->
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9e1e9b78bb.mp3" type="audio/mpeg">
-  </audio>
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9e1e9b78bb.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- Stickers -->
-  <div class="sticker" style="top:10%; left:15%;">💐</div>
-  <div class="sticker" style="top:20%; right:20%;">✨</div>
-  <div class="sticker" style="bottom:15%; left:25%;">🌸</div>
-  <div class="sticker" style="bottom:20%; right:15%;">💖</div>
+<div class="card" id="gameCard">
+  <h1>Friendship Valentine 💐</h1>
+  <p>Tap hearts, level up, enjoy the vibe 🤍</p>
 
-  <!-- Main Card -->
-  <div class="card">
-    <h1>Happy Valentine’s Day 💐</h1>
-    <h2>Dear Aishwarya</h2>
+  <button onclick="startGame()">Start Game 🎵🎮</button>
 
-    <p>
-      Some people are not just friends,<br>
-      they become a part of your comfort,<br>
-      your laughter, and your memories.
-    </p>
-
-    <p class="quote">
-      “A best friend is someone who knows all your stories  
-      and still chooses to stay.”
-    </p>
-
-    <div class="tag">
-      Forever grateful for our friendship 🤍
-    </div>
+  <div class="stats">
+    Level: <span id="level">1</span> |
+    Score: <span id="score">0</span> |
+    Time: <span id="time">15</span>s
   </div>
+</div>
+
+<div class="card message" id="finalMessage">
+  <h1>Dear Aishwarya 🤍</h1>
+  <p>
+    Some friendships don’t need daily talks  
+    or constant presence to stay strong.
+  </p>
+  <p>
+    They stay because they’re built on trust,  
+    comfort, and genuine care.
+  </p>
+  <p style="font-style: italic;">
+    “A best friend is someone who knows your heart  
+    and still chooses to stand by you.”
+  </p>
+  <p style="margin-top:15px; font-size:14px;">
+    Forever grateful for our friendship 💐
+  </p>
+</div>
+
+<script>
+let score = 0;
+let level = 1;
+let timeLeft = 15;
+let gameInterval;
+let timerInterval;
+let targetScore = 5;
+
+function startGame() {
+  document.getElementById("music").play();
+  spawnHearts();
+  startTimer();
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById("time").innerText = timeLeft;
+
+    if (timeLeft <= 0) {
+      nextLevel();
+    }
+  }, 1000);
+}
+
+function spawnHearts() {
+  gameInterval = setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 90 + "vw";
+
+    heart.onclick = () => {
+      score++;
+      document.getElementById("score").innerText = score;
+      heart.remove();
+
+      if (score === targetScore) {
+        confetti();
+      }
+    };
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }, 800);
+}
+
+function nextLevel() {
+  clearInterval(timerInterval);
+
+  if (level >= 3) {
+    endGame();
+    return;
+  }
+
+  level++;
+  targetScore += 5;
+  timeLeft = 15;
+  document.getElementById("level").innerText = level;
+  document.getElementById("time").innerText = timeLeft;
+
+  confetti();
+  startTimer();
+}
+
+function endGame() {
+  clearInterval(gameInterval);
+  clearInterval(timerInterval);
+  confetti();
+
+  document.getElementById("gameCard").style.display = "none";
+  document.getElementById("finalMessage").style.display = "block";
+}
+
+function confetti() {
+  for (let i = 0; i < 80; i++) {
+    const conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.style.left = Math.random() * 100 + "vw";
+    conf.style.backgroundColor =
+      ["#ff4d6d","#ffd166","#06d6a0","#4dabf7","#c77dff"]
+      [Math.floor(Math.random()*5)];
+    conf.style.animationDuration = Math.random() * 2 + 1 + "s";
+
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 2000);
+  }
+}
+</script>
 
 </body>
 </html>
