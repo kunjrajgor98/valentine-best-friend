@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Valentine’s Day Bestie 💐</title>
+<title>Friendship Valentine 💐</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -48,10 +48,13 @@
     color: #555;
   }
 
-  .heart {
+  /* FOOD ITEMS */
+  .food {
     position: absolute;
-    font-size: 26px;
+    font-size: 38px;
     cursor: pointer;
+    z-index: 5;
+    pointer-events: auto;
     animation: float 4s linear;
   }
 
@@ -60,21 +63,22 @@
     to { transform: translateY(-10vh); }
   }
 
-  /* Confetti */
+  /* CONFETTI */
   .confetti {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: random;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    z-index: 6;
     animation: confettiFall 2s linear forwards;
   }
 
   @keyframes confettiFall {
-    from { transform: translateY(0); }
-    to { transform: translateY(100vh); }
+    from { transform: translateY(-10vh); }
+    to { transform: translateY(110vh); }
   }
 
-  /* Final Message */
+  /* FINAL MESSAGE */
   .message {
     display: none;
     animation: fadeIn 1.5s ease;
@@ -94,8 +98,8 @@
 </audio>
 
 <div class="card" id="gameCard">
-  <h1>Friendship Valentine 💐</h1>
-  <p>Tap hearts, level up, enjoy the vibe 🤍</p>
+  <h1 id="foodTitle">Catch the Fries 🍟</h1>
+  <p>Because food dates & friendship go together 🤍</p>
 
   <button onclick="startGame()">Start Game 🎵🎮</button>
 
@@ -109,19 +113,19 @@
 <div class="card message" id="finalMessage">
   <h1>Dear Aishwarya 🤍</h1>
   <p>
-    Some friendships don’t need daily talks  
-    or constant presence to stay strong.
+    Some friendships don’t fade with time,<br>
+    they grow quietly stronger.
   </p>
   <p>
-    They stay because they’re built on trust,  
-    comfort, and genuine care.
+    From food dates to endless conversations,<br>
+    I’m grateful for every shared moment.
   </p>
   <p style="font-style: italic;">
     “A best friend is someone who knows your heart  
-    and still chooses to stand by you.”
+    and still chooses to stay.”
   </p>
   <p style="margin-top:15px; font-size:14px;">
-    Forever grateful for our friendship 💐
+    Happy Valentine’s Day, Bestie 💐
   </p>
 </div>
 
@@ -129,13 +133,31 @@
 let score = 0;
 let level = 1;
 let timeLeft = 15;
-let gameInterval;
-let timerInterval;
 let targetScore = 5;
+let gameInterval, timerInterval;
+let gameStarted = false;
+
+/* FOOD BY LEVEL */
+const foodByLevel = {
+  1: "🍟",
+  2: "🍕",
+  3: "🍔",
+  4: "🥔" // VADA PAV ❤️🔥
+};
+
+const foodNames = {
+  1: "Fries 🍟",
+  2: "Pizza 🍕",
+  3: "Burger 🍔",
+  4: "Vada Pav 🥔🔥"
+};
 
 function startGame() {
+  if (gameStarted) return;
+  gameStarted = true;
+
   document.getElementById("music").play();
-  spawnHearts();
+  spawnFood();
   startTimer();
 }
 
@@ -150,32 +172,32 @@ function startTimer() {
   }, 1000);
 }
 
-function spawnHearts() {
+function spawnFood() {
   gameInterval = setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 90 + "vw";
+    const food = document.createElement("div");
+    food.className = "food";
+    food.innerHTML = foodByLevel[level] || "🥔";
+    food.style.left = Math.random() * 90 + "vw";
 
-    heart.onclick = () => {
+    food.addEventListener("click", () => {
       score++;
       document.getElementById("score").innerText = score;
-      heart.remove();
+      food.remove();
 
       if (score === targetScore) {
         confetti();
       }
-    };
+    });
 
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 4000);
+    document.body.appendChild(food);
+    setTimeout(() => food.remove(), 4000);
   }, 800);
 }
 
 function nextLevel() {
   clearInterval(timerInterval);
 
-  if (level >= 3) {
+  if (level >= 4) {
     endGame();
     return;
   }
@@ -183,8 +205,11 @@ function nextLevel() {
   level++;
   targetScore += 5;
   timeLeft = 15;
+
   document.getElementById("level").innerText = level;
   document.getElementById("time").innerText = timeLeft;
+  document.getElementById("foodTitle").innerText =
+    "Catch the " + foodNames[level];
 
   confetti();
   startTimer();
@@ -200,7 +225,7 @@ function endGame() {
 }
 
 function confetti() {
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 150; i++) {
     const conf = document.createElement("div");
     conf.className = "confetti";
     conf.style.left = Math.random() * 100 + "vw";
