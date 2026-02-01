@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Valentine’s Day, Bestie 💐</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      color: #6a4c93;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #8e7cc3;
+      font-weight: 400;
+      margin-bottom: 25px;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .quote {
+      margin-top: 20px;
+      font-style: italic;
+      color: #444;
+    }
+
+    .tag {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* Floating stickers */
+    .sticker {
+      position: absolute;
+      font-size: 22px;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9e1e9b78bb.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Stickers -->
+  <div class="sticker" style="top:10%; left:15%;">💐</div>
+  <div class="sticker" style="top:20%; right:20%;">✨</div>
+  <div class="sticker" style="bottom:15%; left:25%;">🌸</div>
+  <div class="sticker" style="bottom:20%; right:15%;">💖</div>
+
+  <!-- Main Card -->
+  <div class="card">
+    <h1>Happy Valentine’s Day 💐</h1>
+    <h2>Dear Aishwarya</h2>
+
+    <p>
+      Some people are not just friends,<br>
+      they become a part of your comfort,<br>
+      your laughter, and your memories.
+    </p>
+
+    <p class="quote">
+      “A best friend is someone who knows all your stories  
+      and still chooses to stay.”
+    </p>
+
+    <div class="tag">
+      Forever grateful for our friendship 🤍
+    </div>
+  </div>
+
+</body>
+</html>
